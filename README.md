@@ -12,6 +12,7 @@ O que você vai precisar.
 
 O primeiro passo é o ambiente de desenvolvimento local configurado para o seu site WordPress. 
 Usando git clone docker4wordpress em uma pasta do site. Por exemplo, meusite.
+
 EX:
 git clone https://github.com/wodby/docker4wordpress.git meusite
 Update the .env file, for example:
@@ -36,21 +37,26 @@ cd mysite
 wget http://wordpress.org/latest.tar.gz
 tar xfz latest.tar.gz
 ```
-###Docker Compose
+### Docker Compose
 
-Atualize os caminhos de volume **docker-compose.yml** para montar a base de código em ./wordpress em vez da raiz da pasta do site. Esta etapa é necessária para a configuração de construção. Por exemplo, para ambos os nós de serviços, nginx e php, substitua ./:/var/www/html por ./wordpress:/var/www/html.
+Atualize os caminhos de volume **docker-compose.yml** para montar a base de código em ./wordpress em vez da raiz da pasta do site. 
+Esta etapa é necessária para a configuração de construção. 
+Por exemplo, para ambos os nós de serviços, nginx e php, substitua ./:/var/www/html por ./wordpress:/var/www/html.
 ```
 ...
     volumes:
       - ./wordpress:/var/www/html
 ```
-Crie uma definição de volume nomeada para persistir os dados do mysql. Na parte inferior do arquivo docker-compose.yml, remova o comentário e atualize o nó de volumes. Por exemplo, substitua #volumes: com o seguinte:
+Crie uma definição de volume nomeada para persistir os dados do mysql. 
+Na parte inferior do arquivo docker-compose.yml, remova o comentário e atualize o nó de volumes. 
+Por exemplo, substitua #volumes: com o seguinte:
 ```
 volumes:
   mysql:
 
 ```
-Atualize o serviço mariadb para usar o volume do mysql nomeado. Por exemplo, sob o nó dos serviços do mariadb, descomente e atualize o nó de volumes. Por exemplo:
+Atualize o serviço mariadb para usar o volume do mysql nomeado. 
+Por exemplo, sob o nó dos serviços do mariadb, descomente e atualize o nó de volumes. Por exemplo:
 
 ```
 services:
@@ -70,7 +76,7 @@ A página de instalação do WordPress deve aparecer. Depois de selecionar seu i
 Exemplo:
 ![exemplo](exemplo.png)
 
-Tema personalizado
+#### Tema personalizado
 
 Para demonstrar a inclusão de um tema personalizado na versão, fazeremos  uma cópia dos twentyseventeen e personalizá-lo.
 
@@ -82,7 +88,7 @@ Faremos apenas uma pequena alteração no texto do título do site para mostrar 
 
 Edite mytheme / style.css. Em Layout, adicione o tamanho da fonte: 5vw abaixo das regras de tamanho de fonte existentes. Por exemplo.
 
-####style.css
+#### style.css
 
 ```
 .site-title {
@@ -95,15 +101,16 @@ Edite mytheme / style.css. Em Layout, adicione o tamanho da fonte: 5vw abaixo da
 ```
 Faça o login no site e ative mytheme para ver a alteração no tamanho da fonte do título do site ao ajustar a largura do navegador abaixo de 768 pixels de largura.
 
-####Plugins
+#### Plugins
 
 Para demonstrar a inclusão de plug-ins na compilação do docker, instale um plug-in que será incluído na base de código. Por exemplo, eu gosto do plugin Yoast SEO. Em vez de instalá-lo usando o painel, faça o download e extraia-o. Copie a pasta wordpress-seo para a pasta wordpress / wp-content / plugins. Você pode verificar a instalação fazendo login no painel do site e inspecionando a página de plug-ins.
 
-####Imagem do Docker
+#### Imagem do Docker
 
-A imagem do docker que criamos para preparação e produção será baseada na imagem oficial do WordPress e só precisará dos nossos temas, plugins e outras alterações do ambiente de desenvolvimento. Crie ou baixe este Dockerfile na pasta do seu site. A instrução FROM neste arquivo é configurada para usar a imagem de base oficial do WordPress. Você deve atualizar isso conforme necessário para usar a versão mais recente da imagem.
+A imagem do docker que criamos para preparação e produção será baseada na imagem oficial do WordPress e só precisará dos nossos temas, plugins e outras alterações do ambiente de desenvolvimento. Crie ou baixe este Dockerfile na pasta do seu site. 
+A instrução FROM neste arquivo é configurada para usar a imagem de base oficial do WordPress. Você deve atualizar isso conforme necessário para usar a versão mais recente da imagem.
 
-####Dockerfile
+#### Dockerfile
 ```
 ## https://github.com/docker-library/wordpress
 FROM wordpress:4.9.6-php7.2-apache
@@ -140,7 +147,7 @@ Esta imagem mostra a execução do script de shell docker-build no terminal inte
 ![exemplo2](exemplo2.png)
 _Execute o script de shell docker-build no vs code_
 
-####Deployment
+#### Deployment
 
 Depois de executar o script de construção, deve existir um arquivo .tar salvo nas pastas prod ou stage. Uma maneira de implantar a imagem é copiar o arquivo .tar para o servidor usando scp e carregá-lo.
 
