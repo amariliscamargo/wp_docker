@@ -1,6 +1,6 @@
 ## WordPress usando o Docker
 
-#####(do Desenvolvimento à Produção)
+##### (do Desenvolvimento à Produção)
 
 Como usar o Docker para um ambiente de desenvolvimento local do WordPress e como implantá-lo em um servidor Ubuntu Linux em execução.
 
